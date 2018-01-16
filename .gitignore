@@ -1,0 +1,95 @@
+*.db
+.DS_Store
+*~
+._*
+
+/notes.md
+
+# IDE Files
+#-------------------------
+# Eclipse
+.cache
+.settings
+.buildpath
+.project
+
+# Netbeans
+/nbproject
+
+# VS Code
+.vscode/
+
+## Sublime Text cache files
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# Don't commit composer.phar, executables, or the .phar our build tool generates
+*.phar
+chromedriver
+
+# Don't commit composer lock file
+**/composer.lock
+
+# composer installed dependencies
+**/vendor/*
+
+# Robo config
+/.robo/config/*.config
+/.robo/parts/htaccess/*-development
+
+# Deploy
+**/deploy/*
+
+# Sass
+**/.sass-cache/*
+
+# Phinx
+/phinx.yml
+/phinx.json
+/phinx.php
+
+# Generate Docs
+#------------------------
+docs_src/_*
+
+# Config
+#------------------------
+application/config/config.php
+application/config/database.php
+application/config/email.php
+/config.php
+/.htaccess
+/.user.ini
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+#
+#-------------------------
+application/cache/*
+!application/cache/index.html
+!application/cache/.htaccess
+
+application/logs/*
+!application/logs/index.html
+!application/logs/.htaccess
+
+application/tmp/*
+!application/tmp/index.html
+!application/tmp/.htaccess
+
+# Tests
+#------------------------
+tests/_output/*
+tests/*.suite.yml
+tests/_support/_generated/
+tests/_data/scenarios/
+tests/_emails/*
+
+# Data Files
+#------------------------
+data/*
+!data/.htaccess
+!data/index.php

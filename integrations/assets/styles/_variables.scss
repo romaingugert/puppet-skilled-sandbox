@@ -1,0 +1,45 @@
+/**
+ * Custom variables
+ */
+
+ // Images
+ // ------------------------------
+ // images path, relative to the compiled css file
+$images-path: '../images/' !default;
+
+
+// Fonts & icons
+// ------------------------------
+// fonts path, relative to the compiled css file
+$fonts-path: '../fonts/' !default;
+
+// fonts list
+// NOTE order: font-family, filename (without extension), font-weight, font-style
+$fonts: (
+    ("Material Icons", "MaterialIcons-Regular", normal, normal),
+) !default;
+
+
+
+// Layout
+// ----------------------------
+$sidenav-width: 280px;
+$navbar-height: 2.5rem; // should be REMs
+
+
+
+// Bootstrap overrides
+// ----------------------------
+$gray-darker:       #1e2021;
+$gray-dark:         #292b2c;
+$gray:              #464a4c;
+$gray-light:        #636c72;
+$gray-lighter:      #cbd3d6;
+$gray-lightest:     #f7f7f9;
+
+$brand-primary:     #1375a6;
+$brand-success:     #5C946E;
+$brand-info:        #456990;
+$brand-warning:     #F3A712;
+$brand-danger:      #BC4B51;
+$brand-inverse:     $gray-dark;

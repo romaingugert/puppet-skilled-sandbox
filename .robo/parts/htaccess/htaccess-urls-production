@@ -1,0 +1,35 @@
+# ######################################################################
+# # URLS                                                               #
+# ######################################################################
+
+# ----------------------------------------------------------------------
+# | Forcing `https://`                                                 |
+# ----------------------------------------------------------------------
+
+Header always set Strict-Transport-Security "max-age=31536000"
+
+# ----------------------------------------------------------------------
+# | Forcing the `www.` at the beginning of URLs                        |
+# ----------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP_HOST} !^www\. [NC]
+  RewriteCond %{SERVER_ADDR} !=127.0.0.1
+  RewriteCond %{SERVER_ADDR} !=::1
+  RewriteRule ^ %{ENV:PROTO}://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | Redirect to index.php                                              |
+# ----------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase <##WEB_PATH##>/
+	RewriteRule ^index\.php$ - [L]
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule . <##WEB_PATH##>/index.php [env=HTTP_AUTHORIZATION:%{HTTP:Authorization},QSA,L]
+</IfModule>

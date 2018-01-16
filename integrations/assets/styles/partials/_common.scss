@@ -1,0 +1,460 @@
+// Specific helpers
+// ------------------------------
+%nav-btn-icon {
+    width: $navbar-height;
+    height: $navbar-height;
+    line-height: $navbar-height;
+    cursor: pointer;
+    text-align: center;
+
+    & > i {
+        position: relative;
+        top: -2px;
+        vertical-align: middle;
+        font-size: 1.5em;
+    }
+}
+
+
+
+// Sidenav: account and menu
+// ------------------------------
+#sidenav-token,
+#search-token { display: none; }
+
+.Sidenav {
+    @extend %antialiased;
+    z-index: 1000; overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    position: absolute;
+    top: 0; left: 0;
+    max-width: 95%;
+    width: $sidenav-width; height: 100%;
+    background: $gray-dark;
+    color: $white;
+
+    -webkit-transform: translateX(-110%);
+    transform: translateX(-110%);
+    -webkit-transition: -webkit-transform .15s;
+    transition: transform .15s;
+
+    &-overlay {
+        z-index: -1; opacity: 0;
+        position: fixed;
+        top: 0; bottom: 0; left: 0; right: 0;
+        margin: 0;
+        background: rgba($gray-lightest, .8);
+        -webkit-transition: all .15s;
+        transition: all .15s;
+    }
+
+    // mobile: toggle
+    #sidenav-token:checked ~ & {
+        -webkit-transform: none;
+        transform: none;
+        box-shadow: 0 0 15px rgba($gray-dark, .3);
+    }
+    #sidenav-token:checked ~ &-overlay {
+        z-index: 999;
+        opacity: 1;
+    }
+
+    // desktop: always open
+    @include media-breakpoint-up(lg) {
+        -webkit-transform: none !important;
+        transform: none !important;
+        box-shadow: none !important;
+
+        &-overlay {
+            z-index: -1 !important;
+            display: none !important;
+        }
+    }
+
+
+    // children elements
+    &-header {
+        background: darken($brand-primary, 15%);
+
+        &-icon {
+            display: block;
+            float: left;
+            width: $navbar-height; height: $navbar-height;
+        }
+
+        &-title {
+            margin-left: $navbar-height;
+            margin-bottom: 0;
+            padding: 0 .5rem;
+            font-size: 1em;
+            line-height: $navbar-height;
+        }
+
+        &-lang {
+            float: right;
+            margin-right: .5rem;
+            line-height: $navbar-height;
+
+            .btn { position: relative; top: -1px; }
+            .dropdown-menu { line-height: 1.5; }
+        }
+    }
+
+
+    &-account {
+        position: relative;
+        height: 180px;
+        background-image:url('#{$images-path}cover.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: $gray;
+        padding: 1rem;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to bottom, rgba($gray-darker, 0) 0%, rgba($gray-darker, .65) 100%);
+        }
+
+        &-wrap {
+            position: absolute; z-index: 10;
+            bottom: 0; left: 0; right: 0;
+            padding: .5rem 1rem;
+        }
+
+        &-logo {
+            display: block;
+            width: 80px; height: 80px;
+            margin-bottom: 1rem;
+            border-radius: 50%;
+            box-shadow: 2px 2px 5px rgba($gray-dark, .2);
+        }
+
+        &-alerts {
+            position: absolute; z-index: 15;
+            top: 1rem; right: 1rem;
+            font-weight: bold;
+        }
+
+        &-name {
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: $white;
+            font-family: $font-family-sans-serif;
+            font-size: 1em;
+            outline: none !important;
+            cursor: pointer;
+            text-shadow: 1px 1px 3px rgba($gray-darker, .8);
+        }
+
+        &-sitename {
+            font-size: $font-size-sm;
+            color: darken($gray-lighter, 10%);
+            text-shadow: 1px 1px 3px rgba($gray-darker, .8);
+        }
+    }
+
+
+    &-nav {
+        h2 {
+            margin: 0;
+            padding: 1.5rem 1rem .5rem;
+            font-size: 1em;
+            color: $gray-light;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        a {
+            display: block;
+            padding: 0 1rem;
+            line-height: 2rem;
+            text-decoration: none;
+            color: $gray-lighter;
+
+            -webkit-transition: background .15s;
+            transition: background .15s;
+
+            &:hover, &:focus {
+                background: $gray-darker;
+                text-decoration: none;
+                color: $brand-primary;
+            }
+        }
+
+        li.active a {
+            background: $gray-darker;
+            font-weight: bold;
+            color: $white;
+        }
+    }
+
+    &-footer {
+        margin: 2rem 1rem 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba($gray-lightest, .1);
+        font-size: $font-size-sm;
+
+        & > * {
+            margin-top: 0;
+            margin-bottom: 1rem;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        p {
+            color: $gray-light;
+        }
+    }
+}
+
+
+
+// Main containers
+// ------------------------------
+.Main {
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+
+    @include media-breakpoint-up(lg) {
+        left: $sidenav-width;
+    }
+
+    &-box {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        position: absolute;
+        top: $navbar-height; bottom: 0;
+        left: 0; right: 0;
+        padding: 2rem 0;
+
+        @include media-breakpoint-up(lg) {
+            padding: 2rem 1rem;
+        }
+    }
+}
+
+
+
+// Navbar: title and search
+// ------------------------------
+.Navbar {
+    @extend %antialiased;
+    z-index: 100;
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: $navbar-height;
+    padding-right: $navbar-height + 4rem;
+    padding-left: $navbar-height;
+    background: $brand-primary;
+    box-shadow: 0 0 30px rgba($gray-dark, .15);
+    color: $white;
+
+    @include media-breakpoint-up(lg) {
+        padding-right: $navbar-height + 9rem;
+        padding-left: 1rem;
+    }
+
+
+    // children elements
+    &-back {
+        position: absolute;
+        top: 0; left: 0;
+        width: $navbar-height;
+        color: $white;
+        text-align: center;
+        line-height: $navbar-height;
+
+        &:hover, &:focus {
+            text-decoration: none;
+        }
+
+        & > i {
+            position: relative;
+            top: -2px;
+            vertical-align: middle;
+            font-size: 1.5em;
+        }
+    }
+
+    &-title {
+        @extend %ellipsis;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font-family: $font-family-sans-serif;
+        font-size: 1em;
+        line-height: $navbar-height;
+        color: $white;
+    }
+
+    &-alerts {
+        position: absolute;
+        top: .4rem; right: $navbar-height;
+        vertical-align: middle;
+
+        @include media-breakpoint-up(lg) {
+            display: none;
+        }
+    }
+
+
+    // Sidenav toggler
+    &-toggler {
+        @extend %nav-btn-icon;
+        position: absolute;
+        top: 0; left: 0;
+
+        @include media-breakpoint-up(lg) {
+            display: none;
+        }
+    }
+
+
+    // Search form
+    &-search {
+        z-index: 10;
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        padding: 0 $navbar-height;
+
+        -webkit-transform: translateY(-100%);
+        transform: translateY(-100%);
+
+        -webkit-transition: all .15s;
+        transition: all .15s;
+
+        #search-token:checked ~ & {
+            -webkit-transform: none;
+            transform: none;
+        }
+
+        @include media-breakpoint-up(lg) {
+            -webkit-transform: none;
+            transform: none;
+            left: auto;
+            padding-left: 0;
+        }
+
+        &-open {
+            @extend %nav-btn-icon;
+            position: absolute;
+            top: 0; right: 0;
+
+            @include media-breakpoint-up(lg) {
+                display: none;
+            }
+        }
+
+        &-close {
+            @extend %nav-btn-icon;
+            position: absolute;
+            top: 0; left: 0;
+            background: darken($brand-primary, 15%);
+
+            @include media-breakpoint-up(lg) {
+                display: none;
+            }
+        }
+
+        &-field, &-button {
+            display: block;
+            height: $navbar-height;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            background: darken($brand-primary, 15%);
+            line-height: $navbar-height;
+            font-family: $font-family-sans-serif;
+            font-size: $font-size-sm;
+            color: $white;
+
+            @include placeholder {
+                color: $gray-lighter;
+                font-style: italic;
+            }
+        }
+
+        &-field {
+            width: 100%;
+            padding: 0 1rem;
+
+            -webkit-transition: width .15s;
+            transition: width .15s;
+
+            @include media-breakpoint-up(lg) {
+                left: auto;
+                width: 8rem;
+
+                &:focus {
+                    width: 20rem;
+                }
+            }
+        }
+
+        &-button {
+            @extend %nav-btn-icon;
+            position: absolute;
+            top: 0; right: 0;
+            background: $gray-dark;
+        }
+
+        @include media-breakpoint-up(lg) {
+            display: block;
+        }
+    }
+}
+
+
+
+// FlashAlerts
+// ------------------------------
+.FlashAlerts {
+    z-index: 100;
+    position: absolute;
+    top: $navbar-height; left: 0; right: 0;
+
+    .alert {
+        position: relative;
+        margin: 0;
+        border: none;
+        border-radius: 0;
+        color: $white;
+
+        &-danger { @extend .bg-danger; }
+        &-info { @extend .bg-info; }
+        &-warning { @extend .bg-warning; }
+        &-success { @extend .bg-success; }
+
+        .close {
+            opacity: 1;
+            margin-left: 1rem;
+            font-size: 1.25rem;
+            color: $white;
+            text-shadow: none;
+        }
+
+        &:last-child:after {
+            content: '';
+            position: absolute;
+            top: 100%; left: 0; right: 0;
+            height: 30px;
+            background: linear-gradient(to bottom, rgba($gray-dark, .15) 0%, rgba($gray-dark, 0) 100%);
+        }
+    }
+}

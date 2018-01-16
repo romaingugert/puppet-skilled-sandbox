@@ -1,0 +1,18 @@
+# FILE SYSTEMS FILES
+*.db
+.DS_Store
+._*
+*~
+/**/._*
+.fuse*
+
+
+# FRONT-END FILES
+bower_components
+node_modules
+/dist
+vendor
+
+
+# SPECIFIC FILES
+notes.md

@@ -1,0 +1,50 @@
+.Selectable {
+	@extend %unselectable;
+	position: relative;
+
+	&-checkbox {
+		position: absolute; z-index: 1;
+		top: 0; right: 0;
+		margin: 0;
+		padding: .5rem;
+
+		input { display: none; }
+		& > .custom-control-indicator { position: static; }
+	}
+
+	&.is-selected {
+		border-color: $brand-primary;
+		box-shadow: 0 0 0 1px $brand-primary;
+	}
+
+	&-actions {
+		z-index: 1010;
+		position: fixed;
+		top: 0; left: 0; right: 0;
+		height: $navbar-height;
+		padding: 0 1rem;
+		background: $gray-lightest;
+	    box-shadow: 0 0 30px rgba($gray-dark, .15);
+		line-height: $navbar-height;
+		color: $white;
+
+		-webkit-transform: translateY(-110%);
+		transform: translateY(-110%);
+		-webkit-transition: -webkit-transform .15s;
+		transition: transform .15s;
+
+		@include media-breakpoint-up(lg) {
+			left: $sidenav-width;
+		}
+
+		&.is-open {
+			-webkit-transform: none;
+			transform: none;
+		}
+
+		& > * {
+			position: relative;
+			top: -1px;
+		}
+	}
+}

@@ -1,0 +1,36 @@
+# Dev Folders
+/.robo/***
+/tests/***
+/docs/***
+/integrations/***
+/migrations/***
+/seeds/***
+
+# Pre-processing & dev files
+.rsyncignore
+codeception.yml
+composer.json
+RoboFile.php
+phinx.php
+.bowerrc
+.editorconfig
+.gitattributes
+.gitignore
+.gitkeep
+.gitmodules
+.jscsrc
+.jshintrc
+
+# Pre-processing & dev files
+bower.json
+composer.json
+composer.lock
+gulpfile.js
+package.json
+phpcs.xml
+ruleset.xml
+
+# Application
+/application/cache/**
+/application/logs/**
+/application/tmp/**
