@@ -1,8 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-use App\Service\Language\Language;
-
 class Miscellaneous extends \Globalis\PuppetSkilled\Controller\Base
 {
     protected $isPublic = true;

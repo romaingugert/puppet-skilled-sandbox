@@ -8,10 +8,5 @@ class PuppetSkilledBootstrap
         $application = Application::getInstance();
 
         $container = $application->getContainer();
-
-        // Language
-        $container['languageService'] = function ($c) {
-            return new \App\Service\Language\Language();
-        };
     }
 }
