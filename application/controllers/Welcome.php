@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Welcome extends \App\Core\Controller\Base
+class Welcome extends \Globalis\PuppetSkilled\Controller\Base
 {
     protected $isPublic = true;
 
