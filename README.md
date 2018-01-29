@@ -37,9 +37,16 @@ Don't forget to create the database before the installation.
 ```
 composer install
 robo install
-robo assets:build
 ```
 
+
+## Integrations
+
+In this project, you'll find a `integrations` folder with the SCSS stylesheets, fonts, images and scripts by the application, as well as templates and snippets to help you edit them.
+
+To watch the assets files so you can see the changes in real time, use `robo assets:watch`, and visit `puppet-skilled-sandbox/integrations/`.
+
+You can also use `robo assets:build` if you only want to compile all assets once.
 
 
 ## Step 1

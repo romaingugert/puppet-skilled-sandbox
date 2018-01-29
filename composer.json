@@ -9,7 +9,8 @@
     "require-dev": {
         "robmorgan/phinx": "^0.6.5",
         "fzaninotto/faker": "^1.6",
-        "globalis/robo-task": "^1.0"
+        "globalis/robo-task": "^1.0",
+        "henrikbjorn/lurker": "^1.2"
     },
     "autoload": {
        "psr-4": {
