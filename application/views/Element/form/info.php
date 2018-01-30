@@ -1,7 +1,7 @@
 <?php
 $defaults = [
     'name'  => $this->fetch('name'),
-    'class' => 'form-control-static',
+    'class' => 'form-control-plaintext',
     'id'    => preg_replace('/[^A-Za-z0-9\_\-]/', '_', $this->fetch('name')),
 ];
 $extra = ($this->fetch('extra')?:[]);

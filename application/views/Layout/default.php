@@ -27,7 +27,7 @@ if (!empty($breadcrumb)):
     end($breadcrumb);
     $lastKey = key($breadcrumb);
 ?>
-            <ol class="breadcrumb hidden-md-down">
+            <ol class="breadcrumb d-none d-lg-flex">
 <?php
 $icon = '<i class="material-icons">home</i>';
 foreach ($this->fetch('breadcrumb') as $key=> $value):

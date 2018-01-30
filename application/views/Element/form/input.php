@@ -11,8 +11,8 @@ $defaults = $extra + $defaults;
 if ($defaults['type'] === 'password') {
     $defaults['value'] = '';
 }
-if (($error = form_error($this->fetch('name'), '<div class="form-control-feedback"><i class="material-icons">warning</i> ', '</div>'))) {
-    $defaults['class'] .= ' form-control-danger';
+if (($error = form_error($this->fetch('name'), '<div class="invalid-feedback"><i class="material-icons">warning</i> ', '</div>'))) {
+    $defaults['class'] .= ' is-invalid';
 }
 ?>
 <input <?= _attributes_to_string($defaults) ?> />

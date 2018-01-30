@@ -10,7 +10,7 @@ $pagerResult['limit_choices_filter'] = array_filter($pagerResult['limit_choices'
 if (!($pagerResult['total'] < min($pagerResult['limit_choices']))):
 ?>
 <form class="btn-toolbar" action="<?= site_url($baseUrl) ?>" method="get">
-    <div class="btn-group hidden-sm-down">
+    <div class="btn-group d-none d-md-inline-flex">
         <?= anchor(
             $baseUrl.'?page=1',
             '<i class="material-icons">first_page</i>',
@@ -28,7 +28,7 @@ if (!($pagerResult['total'] < min($pagerResult['limit_choices']))):
             ]
         ) ?>
     </div>
-    <div class="btn-group hidden-md-up">
+    <div class="btn-group d-md-none">
         <?= anchor(
             $baseUrl.'?page='. ($currentPage-1),
             '<i class="material-icons">navigate_before</i>',
@@ -41,10 +41,14 @@ if (!($pagerResult['total'] < min($pagerResult['limit_choices']))):
 
     <div class="input-group ml-2 mr-2">
         <input type="text" name="page" class="form-control input-xs text-center js-focus-select js-live-submit" value="<?= $pagerResult['page'] ?>" pattern="^[0-9+]$" />
-        <span class="input-group-addon">/ <?= $total ?></span>
+        <span class="input-group-append">
+            <span class="input-group-text">
+                / <?= $total ?> 
+            </span>
+        </span>
     </div>
 
-    <div class="btn-group hidden-md-up">
+    <div class="btn-group d-md-none">
         <?= anchor(
             $baseUrl.'?page='. ($currentPage+1),
             '<i class="material-icons">navigate_next</i>',
@@ -54,7 +58,7 @@ if (!($pagerResult['total'] < min($pagerResult['limit_choices']))):
             ]
         ) ?>
     </div>
-    <div class="btn-group hidden-sm-down">
+    <div class="btn-group d-none d-md-inline-flex">
         <?= anchor(
             $baseUrl.'?page='. ($currentPage+1),
             '<i class="material-icons">navigate_next</i>',
@@ -75,11 +79,11 @@ if (!($pagerResult['total'] < min($pagerResult['limit_choices']))):
 
 <?php if (count($pagerResult['limit_choices_filter']) <= 1): ?>
     <div class="btn-group ml-2">
-        <button type="button" class="btn btn-secondary hidden-sm-down" disabled>
-            <span class="hidden-sm-down">
+        <button type="button" class="btn btn-secondary d-none d-md-inline-block" disabled>
+            <span class="d-none d-md-inline">
                 <?= sprintf(lang('general_label_pagination_limit'), $pagerResult['limit']) ?>
             </span>
-            <span class="hidden-md-up">
+            <span class="d-md-none">
                 <?= $pagerResult['limit'] ?>
             </span>
         </button>
@@ -87,10 +91,10 @@ if (!($pagerResult['total'] < min($pagerResult['limit_choices']))):
 <?php else: ?>
     <div class="btn-group dropup ml-2">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-            <span class="hidden-sm-down">
+            <span class="d-none d-md-inline">
                 <?= sprintf(lang('general_label_pagination_limit'), $pagerResult['limit']) ?>
             </span>
-            <span class="hidden-md-up">
+            <span class="d-md-none">
                 <?= $pagerResult['limit'] ?>
             </span>
         </button>

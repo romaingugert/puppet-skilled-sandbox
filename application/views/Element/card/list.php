@@ -14,8 +14,8 @@ $actions = $this->fetch('actions');
         <div class="float-left">
             <button type="button" class="btn btn-inverse btn-sm" data-check-cancel="cruditems">
                 <i class="material-icons">close</i>
-                <span class="hidden-sm-down"><?= lang('general_label_selection') ?></span>
-                <span class="badge badge-default" data-check-count="cruditems">0</span>
+                <span class="d-none d-md-inline"><?= lang('general_label_selection') ?></span>
+                <span class="badge badge-secondary" data-check-count="cruditems">0</span>
             </button>
         </div>
         <div class="float-right">
@@ -61,10 +61,10 @@ else :
                     'value' => $item->getRouteKey(),
                     'data-check' => 'cruditems',
                 ]) ?>>
-                <span class="custom-control-indicator"></span>
+                <span class="custom-control-label"></span>
             </label>
 <?php endif; ?>
-            <div class="card-block">
+            <div class="card-body">
                 <?= $contentFunction($item) ?>
             </div>
 <?php if ($footerFunction): ?>

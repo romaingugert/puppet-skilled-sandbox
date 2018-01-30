@@ -14,12 +14,12 @@ $baseUrl = $this->fetch('base_url') ?: current_base_url();
         ) ?>
         <?= lang('general_label_total_element') ?> <?= $pagers['total'] ?>
     </div>
-    <div class="card-block">
+    <div class="card-body">
         <?php $preprendId = uniqid(); ?>
         <form action="<?= site_url($baseUrl) ?>" method="get" accept-charset="utf-8">
             <div class="input-group">
                 <input type="text" class="form-control" name="search" id="<?= $preprendId ?>search" placeholder="<?= lang('general_label_filter_search') ?>" value="<?= html_escape($filters->getValue('search')) ?>">
-                <div class="input-group-btn">
+                <div class="input-group-append">
                     <button type='submit' value="<?= $filters->getFilterActionValue() ?>" name="<?= $filters->getActionName() ?>" class='btn btn-secondary'>
                         <?= lang('general_action_filter') ?>
                     </button>

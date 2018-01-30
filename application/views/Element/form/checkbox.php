@@ -9,6 +9,7 @@ $defaults = [
 $extra = ($this->fetch('extra')?:[]);
 $defaults = $extra + $defaults;
 $selected = (array) $this->fetch('default_value');
+$error = form_error($this->fetch('name'), '<div class="invalid-feedback d-flex"><i class="material-icons">warning</i> ', '</div>');
 ?>
 <div>
 <?php
@@ -17,16 +18,16 @@ foreach ($this->fetch('options') as $key => $val) :
     $attr = $defaults;
     $attr['id'] = $attr['id'] . $key;
     $attr['value'] = $key;
+    if ($error) {
+        $attr['class'] .= ' is-invalid';
+    }
 ?>
-<div class="input-group">
-    <label class="custom-control custom-checkbox">
+    <div class="custom-control custom-checkbox">
         <input <?= _attributes_to_string($attr) ?> <?= set_checkbox($this->fetch('name'), $key, in_array($key, $selected)) ?> />
-        <span class="custom-control-indicator"></span>
-        <span class="custom-control-description"><?= lang_libelle($val) ?></span>
-    </label>
-</div>
+        <label class="custom-control-label" for="<?= $attr['id'] ?>"><?= lang_libelle($val) ?></label>
+    </div>
 <?php
 endforeach;
 ?>
 </div>
-<?= form_error($this->fetch('name'), '<div class="form-control-feedback"><i class="material-icons">warning</i> ', '</div>') ?>
+<?= $error ?>

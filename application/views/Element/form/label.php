@@ -1,7 +1,7 @@
 <?php
 $defaults = [
     'for' => $this->fetch('field'),
-    'class' => 'form-control-label',
+    'class' => 'col-form-label',
 ];
 $extra = ($this->fetch('extra')?:[]);
 $defaults = $extra + $defaults;

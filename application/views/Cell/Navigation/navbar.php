@@ -2,8 +2,8 @@
     <label for="sidenav-token" class="Navbar-toggler">
         <i class="material-icons">menu</i>
     </label>
-    <h1 class="Navbar-title hidden-md-down"><?= lang_libelle($this->fetch('page_title')) ?></h1>
-    <div class="dropdown hidden-lg-up">
+    <h1 class="Navbar-title d-none d-lg-block"><?= lang_libelle($this->fetch('page_title')) ?></h1>
+    <div class="dropdown d-lg-none">
         <button class="Navbar-title dropdown-toggle" type="button" id="dropdownBreadcrumbMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <?= lang_libelle($this->fetch('page_title')) ?>
         </button>

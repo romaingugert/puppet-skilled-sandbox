@@ -3,9 +3,6 @@ $id = ($this->fetch('id')) ?: $this->fetch('name');
 $extra_input =  ($this->fetch('extra'))?: [];
 $extra_input['id'] = $id;
 $class = 'form-group';
-if (form_error($this->fetch('name'))) {
-    $class .= ' has-danger';
-}
 ?>
 <div class="<?= $class ?>">
     <?= $this->element(

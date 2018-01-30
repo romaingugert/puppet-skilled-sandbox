@@ -11,8 +11,8 @@ if (count($selected) > 1) {
     $defaults['multiple'] = 'multiple';
 }
 
-if (($error = form_error($this->fetch('name'), '<div class="form-control-feedback"><i class="material-icons">warning</i> ', '</div>'))) {
-    $defaults['class'] .= ' form-control-danger';
+if (($error = form_error($this->fetch('name'), '<div class="invalid-feedback"><i class="material-icons">warning</i> ', '</div>'))) {
+    $defaults['class'] .= ' is-invalid';
 }
 
 $extra = ($this->fetch('extra')?:[]);

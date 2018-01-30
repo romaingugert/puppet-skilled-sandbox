@@ -9,8 +9,8 @@ $value = set_value($this->fetch('name'), $this->fetch('default_value'));
 $extra = ($this->fetch('extra')?:[]);
 $defaults = $extra + $defaults;
 if (form_error($this->fetch('name'))) {
-    $defaults['class'] .= ' invalid';
+    $defaults['class'] .= ' is-invalid';
 }
 ?>
 <textarea <?= _attributes_to_string($defaults) ?>><?= $value ?></textarea>
-<?= form_error($this->fetch('name'), '<div class="form-control-feedback"><i class="material-icons">warning</i> ', '</div>') ?>
+<?= form_error($this->fetch('name'), '<div class="invalid-feedback"><i class="material-icons">warning</i> ', '</div>') ?>
