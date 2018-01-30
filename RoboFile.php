@@ -289,12 +289,14 @@ class RoboFile extends \Globalis\Robo\Tasks
      *
      * @param  string $name The seed name
      */
-    public function seedRun($name)
+    public function seedRun($name = null)
     {
-        $this->taskExec('vendor/bin/phinx')
-            ->arg('seed:run')
-            ->option('-s ' . $name)
-            ->run();
+        $task = $this->taskExec('vendor/bin/phinx')
+            ->arg('seed:run');
+        if ($name) {
+            $task->option('-s ' . $name);
+        }
+        return $task->run();
     }
 
     /**

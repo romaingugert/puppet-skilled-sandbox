@@ -73,9 +73,16 @@ Puppet Skilled's view layer is similar to CakePHP's and organised in five parts 
 
 Puppet Skilled uses [Phinx](https://phinx.org/) to handle changes in the database structure, and Robo tasks are already configured to use it.
 
-* Create migration : `robo migrate:create NameInCamelCase`
+* Create migration : `robo migrate:create NameInCamelCase`, the migration file is created in `migrations/`
 * Run migration : `robo migrate:up`
 * Roll back migration : `robo migrate:down`
+
+You can also create and run seeds to insert data in your database.
+
+* Create a seed : `robo seed:create SeedName`, the `SeedName.php` file is created in `seeds/`
+* Run a seed : `robo seed:run [SeedName]`
+
+Execute `robo seed:run` to create a company and three users.
 
 
 ### Dependency container
