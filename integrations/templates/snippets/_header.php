@@ -15,7 +15,6 @@
     <meta name="theme-color" content="#59B5C5">
 
     <link href="dist/styles/main.css" rel="stylesheet">
-    <link href="dist/styles/flatpickr.css" rel="stylesheet">
     <link href="dist/styles/debug.css" rel="stylesheet">
 </head>
 <body>
@@ -116,8 +115,8 @@
             <label for="sidenav-token" class="Navbar-toggler">
                 <i class="material-icons">menu</i>
             </label>
-            <h1 class="Navbar-title hidden-md-down">Titre de la page</h1>
-            <div class="dropdown hidden-lg-up">
+            <h1 class="Navbar-title d-none d-lg-block">Titre de la page</h1>
+            <div class="dropdown d-lg-none">
                 <button class="Navbar-title dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Titre de la page
                 </button>
@@ -171,7 +170,7 @@
         <!-- Main box: page content goes here -->
         <section class="Main-box">
             <div class="container-fluid">
-                <ol class="breadcrumb hidden-md-down">
+                <ol class="breadcrumb d-none d-lg-flex">
                     <li class="breadcrumb-item"><a href="<?= params(['view' => 'home']) ?>"><i class="material-icons">home</i> Dashboard</a></li>
                     <li class="breadcrumb-item"><a href="#">Page grand-parente</a></li>
                     <li class="breadcrumb-item"><a href="#">Page parente</a></li>

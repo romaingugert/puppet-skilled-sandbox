@@ -63,8 +63,6 @@ else
 	@ echo "› Checking NPM dependencies:"
 	@ npm install
 endif
-	@ echo "› Done. Installing frond-end dependencies:"
-	@ bower install --allow-root
 	@ echo "› Done. Creating folders:"
 	@ for dir in "dist/styles" "dist/scripts";do mkdir -p $$dir && echo "$$dir created.";done
 	@ echo "› Installation done, start with \"make watch\"."
@@ -97,14 +95,16 @@ scripts:
 	@ echo "› Done."
 
 vendor:
-	@ echo "› Building Bower vendor scripts:"
-	@ $(eval files=$(shell $(NPM_PREFIX)bower-files js))
-	@ [ -z "$(files)" ] || $(NPM_PREFIX)uglifyjs $(files) -o dist/scripts/vendor.js --source-map dist/scripts/vendor.js.map -p relative
+	@ echo "› Building NPM vendor scripts:"
+	@ $(NPM_PREFIX)uglifyjs node_modules/jquery/dist/jquery.js \
+		node_modules/popper.js/dist/umd/popper.js \
+		node_modules/bootstrap/dist/js/bootstrap.js \
+		-o dist/scripts/vendor.js --source-map dist/scripts/vendor.js.map -p relative
 	@ [ -z "$(files)" ] && echo "› no vendor scripts" || echo "› dist/scripts/vendor.js has been updated"
 
 fonts:
 	@ echo "› Moving fonts:"
-	cp -r bower_components/material-iconfont/iconfont/* assets/fonts/
+	cp -r node_modules/material-design-icons-iconfont/dist/fonts/* assets/fonts/
 	@ rm -rf dist/fonts
 	cp -r assets/fonts dist
 	@ echo "› Done."

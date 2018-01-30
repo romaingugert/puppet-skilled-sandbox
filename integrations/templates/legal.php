@@ -10,7 +10,7 @@
     </a>
 </p>
 
-<section class="card card-block">
+<section class="card card-body">
     <h2><?= words(5) ?></h2>
     <p><?= words(30) ?></p>
     <ul>

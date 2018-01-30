@@ -6,10 +6,7 @@
 		position: absolute; z-index: 1;
 		top: 0; right: 0;
 		margin: 0;
-		padding: .5rem;
-
-		input { display: none; }
-		& > .custom-control-indicator { position: static; }
+		padding: .65rem;
 	}
 
 	&.is-selected {

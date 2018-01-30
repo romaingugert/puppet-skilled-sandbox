@@ -115,6 +115,13 @@ class RoboFile extends \Globalis\Robo\Tasks
                 ->rawArg(__DIR__ . '/integrations/assets/scripts/*.js')
                 ->rawArg('-o ' . $appPath .'/public/scripts/main.js')
             ->run();
+        $this->taskExec('node_modules/.bin/uglifyjs')
+                ->dir(__DIR__ . '/integrations/')
+                ->rawArg(__DIR__ . '/integrations/node_modules/jquery/dist/jquery.js')
+                ->rawArg(__DIR__ . '/integrations/node_modules/popper.js/dist/umd/popper.js')
+                ->rawArg(__DIR__ . '/integrations/node_modules/bootstrap/dist/js/bootstrap.js')
+                ->rawArg('-o ' . $appPath .'/public/scripts/vendor.js')
+            ->run();
     }
 
     private function _assetsBuildImages($appPath)

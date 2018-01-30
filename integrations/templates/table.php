@@ -19,32 +19,30 @@
       </button>
         11 résultats
     </div>
-    <div class="card-block" id="collapseExample">
+    <div class="card-body" id="collapseExample">
         <?php $filter = isset($_GET['filter']) ? $_GET['filter'] : null ?>
         <form action="#" method="get">
             <?php foreach (array_diff_key($_GET, array_flip(['filter'])) as $k => $v): ?>
             <input type="hidden" name="<?= $k ?>" value="<?= xss($v) ?>">
             <?php endforeach ?>
             <div class="form-group">
-                <input type="text" class="form-control" name="filter" id="filter" placeholder="Filter les résultats…" value="<?= xss($filter) ?>">
+                <input type="text" class="form-control" name="filter" id="filter" placeholder="Filter les résultats…" value="<?= xss($filter) ?>" />
             </div>
             <div class="form-group">
                 <div class="form-check form-check-inline">
                     <span class="form-check-legend">Actif</span>
                 </div>
                 <div class="form-check form-check-inline">
-                    <label class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input">
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">Oui</span>
-                    </label>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="form-check-input custom-control-input" id="customCheck1" />
+                        <label class="form-check-label custom-control-label" for="customCheck1">Oui</label>
+                    </div>
                 </div>
                 <div class="form-check form-check-inline">
-                    <label class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input">
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">Non</span>
-                    </label>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="form-check-input custom-control-input" id="customCheck2" />
+                        <label class="form-check-label custom-control-label" for="customCheck2">Non</label>
+                    </div>
                 </div>
             </div>
             <div class="text-center">
@@ -77,7 +75,7 @@
             <?php foreach (range(1,11) as $i): ?>
             <tr>
                 <td><?= words(2, 3) ?></td>
-                <td><span class="badge badge-default"><?= words(1, 2) ?></span></td>
+                <td><span class="badge badge-secondary"><?= words(1, 2) ?></span></td>
                 <td>January 3, 2017</td>
                 <td class="table-actions">
                     <?php if ($i%2): ?>

@@ -16,7 +16,6 @@
 
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
     <link href="dist/styles/main.css" rel="stylesheet">
-    <link href="dist/styles/flatpickr.css" rel="stylesheet">
 </head>
 <body>
 

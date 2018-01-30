@@ -42,11 +42,13 @@ robo install
 
 ## Integrations
 
-In this project, you'll find a `integrations` folder with the SCSS stylesheets, fonts, images and scripts by the application, as well as templates and snippets to help you edit them.
+In this project, you'll find a `integrations/` folder with the SCSS stylesheets, fonts, images and scripts by the application, as well as templates and snippets to help you edit them.
 
-To watch the assets files so you can see the changes in real time, use `robo assets:watch`, and visit `puppet-skilled-sandbox/integrations/`.
+While you work on the integration files, execute `make watch` in the `integrations/` folder and visit `puppet-skilled-sandbox/integrations/` to see the changes on the templates in real time.
 
-You can also use `robo assets:build` if you only want to compile all assets once.
+To see the changes in real time to the actual application, use `robo assets:watch` at the project root.
+
+You can also use `make build` and `robo assets:build` if you only want to build assets once.
 
 
 ## Step 1

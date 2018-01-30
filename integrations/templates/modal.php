@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <form action="" method="POST" class="card card-outline-danger">
                     <div class="card-header bg-danger text-white">Confirmez la suppression</div>
-                    <div class="card-block">
+                    <div class="card-body">
                         <div class="form-group">
                             <label class="form-control-label" for="confirm">Ecrivez <i>test/confirm</i> avant de confirmer la suppression</label>
                             <input type="text" name="confirm" class="form-control" id="confirm">

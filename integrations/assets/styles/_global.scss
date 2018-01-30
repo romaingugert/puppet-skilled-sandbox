@@ -79,18 +79,13 @@ fieldset {
     @extend %unselectable;
 	align-items: center;
 	justify-content: center;
-
-	&-input { display: none; }
-	&-indicator {
-		position: static;
-	}
 }
 
 .card-header {
 	font-size: $font-size-base;
 }
 
-.form-control-label {
+.col-form-label {
 	font-weight: bold;
 }
 

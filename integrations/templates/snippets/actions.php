@@ -2,8 +2,8 @@
     <div class="float-left">
         <button type="button" class="btn btn-inverse btn-sm" data-check-cancel="cruditems">
             <i class="material-icons">close</i>
-            <span class="hidden-sm-down">Sélection</span>
-            <span class="badge badge-default" data-check-count="cruditems">0</span>
+            <span class="d-none d-md-inline">Sélection</span>
+            <span class="badge badge-secondary" data-check-count="cruditems">0</span>
         </button>
     </div>
     <div class="float-right">
@@ -13,7 +13,7 @@
             data-check-data="cruditems"
             data-confirm="Déverrouiller la sélection ?">
             <i class="material-icons">lock_open</i>
-            <span class="hidden-sm-down">Déverrouiller</span>
+            <span class="d-none d-md-inline">Déverrouiller</span>
         </button>
         <button type="submit"
             formaction="#lock"
@@ -21,7 +21,7 @@
             data-check-data="cruditems"
             data-confirm="Verrouiller la sélection ?">
             <i class="material-icons">lock</i>
-            <span class="hidden-sm-down">Verrouiller</span>
+            <span class="d-none d-md-inline">Verrouiller</span>
         </button>
         <button type="submit"
             formaction="#delete"
@@ -29,7 +29,7 @@
             data-check-data="cruditems"
             data-confirm="Supprimer la sélection ?">
             <i class="material-icons">delete</i>
-            <span class="hidden-sm-down">Supprimer</span>
+            <span class="d-none d-md-inline">Supprimer</span>
         </button>
     </div>
 </div>
