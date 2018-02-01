@@ -3,8 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Miscellaneous extends \Globalis\PuppetSkilled\Controller\Base
 {
-    protected $isPublic = true;
-
     protected $layout = 'simple';
 
     /**
