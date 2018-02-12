@@ -1,7 +1,0 @@
-{
-  "name": "globbox",
-  "dependencies": {
-    "bootstrap": "v4.0.0-alpha.6",
-    "material-iconfont": "https://github.com/globalis-ms/material-iconfont.git"
-  }
-}
