@@ -10,19 +10,19 @@ return [
     'local' => [
         'GIT_PATH' => [
             'question' => 'Path to git',
-            'default' => '/usr/local/bin/git',
+            'default' => 'git',
         ],
         'NPM_PATH' => [
             'question' => 'Path to npm',
-            'default' => '/usr/local/bin/npm',
+            'default' => 'npm',
         ],
         'BOWER_PATH' => [
             'question' => 'Path to bower',
-            'default' => '/usr/local/bin/bower',
+            'default' => 'bower',
         ],
         'GULP_PATH' => [
             'question' => 'Path to gulp',
-            'default' => '/usr/local/bin/gulp',
+            'default' => 'gulp',
         ],
 
         /**
@@ -98,24 +98,33 @@ return [
             'question' => 'Cookie will only be set if a secure HTTPS connection exists. ',
             'choices' => ['false', 'true'],
             'default' => 'false',
+            'if' => function(array $currentConfig) {
+                return $currentConfig['WEB_SCHEME'] === 'http';
+            },
         ],
 
         /**
          * Email Config
          */
          'EMAIL_PROTOCOL' => [
-             'question' => 'Email protocol',
-             'choices' => ['mail', 'sendmail', 'smtp'],
-             'default' => 'mail',
+            'question' => 'Email protocol',
+            'choices' => ['mail', 'sendmail', 'smtp'],
+            'default' => 'mail',
          ],
          'EMAIL_HOST' => [
-             'question' => 'Email server address',
-             'default' => '',
-             'empty' => true,
+            'question' => 'Email server address',
+            'default' => '',
+            'empty' => true,
+            'if' => function(array $currentConfig) {
+                return $currentConfig['EMAIL_PROTOCOL'] === 'smtp';
+            },
          ],
          'EMAIL_PORT' => [
-             'question' => 'Email server port',
-             'default' => '25',
+            'question' => 'Email server port',
+            'default' => '25',
+            'if' => function(array $currentConfig) {
+                return $currentConfig['config_key_2'] === 'smtp';
+            },
          ],
     ]
 ];

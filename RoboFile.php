@@ -31,10 +31,10 @@ class RoboFile extends \Globalis\Robo\Tasks
     public function install()
     {
         $this->loadConfig();
-        $this->buildApp(__DIR__);
-        $this->installDependencies(__DIR__);
-        $this->_assetsBuild(__DIR__);
-        $this->migrateUp();
+        return $this->collectionBuilder()
+            ->addTask($this->buildApp(__DIR__))
+            ->addTask($this->installDependencies(__DIR__))
+            ->addTask($this->migrateUp());
     }
 
     private function installDependencies($appPath)
@@ -47,122 +47,26 @@ class RoboFile extends \Globalis\Robo\Tasks
             $task->noDev()
                 ->optimizeAutoloader();
         }
-        $task->run();
-        // Install NPM dependencies
-        $task = $this->taskExec('make')
-            ->arg('install')
-            ->dir($appPath . '/integrations')
-            ->run();
-    }
-
-    /**
-     * Build portal assets
-     */
-    public function assetsBuild()
-    {
-        $this->loadConfig();
-        $this->_assetsBuild(__DIR__);
-    }
-
-    /**
-     * Watch changes on portal assets
-     */
-    public function assetsWatch()
-    {
-        $this->loadConfig();
-
-        $this->taskWatch()
-            ->monitor('integrations/assets/styles', function () {
-                $this->_assetsBuildStyles(__DIR__);
-            })
-            ->monitor('integrations/assets/scripts', function () {
-                $this->_assetsBuildScripts(__DIR__);
-            })
-            ->monitor('integrations/assets/images', function () {
-                $this->_assetsBuildImages(__DIR__);
-            })
-            ->monitor('integrations/assets/fonts', function () {
-                $this->_assetsBuildFonts(__DIR__);
-            })->run();
-    }
-
-    private function _assetsBuild($appPath)
-    {
-        $this->_assetsBuildStyles($appPath);
-        $this->_assetsBuildScripts($appPath);
-        $this->_assetsBuildImages($appPath);
-        $this->_assetsBuildFonts($appPath);
-    }
-
-    private function _assetsBuildStyles($appPath)
-    {
-        $this->taskExec('node_modules/.bin/node-sass')
-                ->dir(__DIR__ . '/integrations/')
-                ->rawArg('--output-style=compressed')
-                ->rawArg('assets/styles/main.scss')
-                ->rawArg('-o ' . $appPath .'/public/styles/')
-            ->taskExec('node_modules/.bin/postcss')
-                ->dir(__DIR__ . '/integrations/')
-                ->rawArg('--config postcss.js')
-                ->rawArg('--replace ' . $appPath .'/public/styles/main.css')
-            ->run();
-    }
-
-    private function _assetsBuildScripts($appPath)
-    {
-        $this->taskExec('node_modules/.bin/uglifyjs')
-                ->dir(__DIR__ . '/integrations/')
-                ->rawArg(__DIR__ . '/integrations/assets/scripts/*.js')
-                ->rawArg('-o ' . $appPath .'/public/scripts/main.js')
-            ->run();
-        $this->taskExec('node_modules/.bin/uglifyjs')
-                ->dir(__DIR__ . '/integrations/')
-                ->rawArg(__DIR__ . '/integrations/node_modules/jquery/dist/jquery.js')
-                ->rawArg(__DIR__ . '/integrations/node_modules/popper.js/dist/umd/popper.js')
-                ->rawArg(__DIR__ . '/integrations/node_modules/bootstrap/dist/js/bootstrap.js')
-                ->rawArg('-o ' . $appPath .'/public/scripts/vendor.js')
-            ->run();
-    }
-
-    private function _assetsBuildImages($appPath)
-    {
-        $this->taskImageMinify(__DIR__ . '/integrations/assets/images/*')
-                ->to($appPath .'/public/images/')
-            ->run();
-    }
-
-    private function _assetsBuildFonts($appPath)
-    {
-        $this->taskRsync()
-            ->fromPath(__DIR__ . '/integrations/assets/fonts')
-            ->toPath($appPath . '/public')
-            ->recursive()
-            ->delete()
-            ->option('perms')
-            ->option('chmod', 'Du=rwx,Dgo=rx,Fu=rw,Fgo=r')
-            ->run();
+        return $task;
     }
 
     private function buildApp($appPath)
     {
-        $this->taskCopyReplaceDir([$this->buildDirectory => $appPath])
-            ->from(array_keys($this->configVariables))
-            ->to($this->configVariables)
-            ->startDelimiter('<##')
-            ->endDelimiter('##>')
-            ->dirPermissions(0755)
-            ->filePermissions(0644)
-            ->run();
-        // Build part
-        $this->buildParts($appPath);
+        return $this->collectionBuilder()
+            ->addTask($this->taskCopyReplaceDir([$this->buildDirectory => $appPath])
+                ->from(array_keys($this->configVariables))
+                ->to($this->configVariables)
+                ->startDelimiter('<##')
+                ->endDelimiter('##>')
+                ->dirPermissions(0755)
+                ->filePermissions(0644)
+            )->addTask($this->buildParts($appPath));
     }
 
     private function buildParts($path, $config = null)
     {
-
         $config = ($config?: $this->configVariables);
         $env = $config['ENVIRONEMENT'];
-
 
         $htaccess_parts_path = $this->partsDirectory . '/htaccess/';
         $htaccess_parts =
@@ -181,16 +85,15 @@ class RoboFile extends \Globalis\Robo\Tasks
             }
         }
 
-        $this->taskConcat($htaccess_parts)
-        ->to($path . '/.htaccess')
-        ->run();
-
-        $this->taskReplacePlaceholders($path . '/.htaccess')
-         ->from(array_keys($config))
-         ->to($config)
-         ->startDelimiter('<##')
-         ->endDelimiter('##>')
-         ->run();
+        return $this->collectionBuilder()
+            ->addTask($this->taskConcat($htaccess_parts)
+                ->to($path . '/.htaccess')
+            )->addTask($this->taskReplacePlaceholders($path . '/.htaccess')
+                ->from(array_keys($config))
+                ->to($config)
+                ->startDelimiter('<##')
+                ->endDelimiter('##>')
+            );
     }
 
     /**
@@ -207,7 +110,7 @@ class RoboFile extends \Globalis\Robo\Tasks
             ->run()
             ->getData();
         // Install project
-        $this->install();
+        return $this->install();
     }
 
     private function loadConfig()
@@ -241,9 +144,8 @@ class RoboFile extends \Globalis\Robo\Tasks
      */
     public function migrateUp()
     {
-        $this->taskExec('vendor/bin/phinx')
-            ->arg('migrate')
-            ->run();
+        return $this->taskExec('vendor/bin/phinx')
+            ->arg('migrate');
     }
 
     /**
@@ -252,9 +154,8 @@ class RoboFile extends \Globalis\Robo\Tasks
      */
     public function migrateDown()
     {
-        $this->taskExec('vendor/bin/phinx')
-            ->arg('rollback')
-            ->run();
+        return $this->taskExec('vendor/bin/phinx')
+            ->arg('rollback');
     }
 
     /**
@@ -271,11 +172,11 @@ class RoboFile extends \Globalis\Robo\Tasks
         }
         $name= implode('', $name);
 
-        $this->taskExec('vendor/bin/phinx')
+        return $this->taskExec('vendor/bin/phinx')
             ->arg('create')
-            ->arg($name)
-            ->run();
+            ->arg($name);
     }
+
     /**
      * Seed create
      * Create a seed file
@@ -284,10 +185,9 @@ class RoboFile extends \Globalis\Robo\Tasks
      */
     public function seedCreate($name)
     {
-        $this->taskExec('vendor/bin/phinx')
+        return $this->taskExec('vendor/bin/phinx')
             ->arg('seed:create')
-            ->arg($name)
-            ->run();
+            ->arg($name);
     }
 
     /**
@@ -303,7 +203,7 @@ class RoboFile extends \Globalis\Robo\Tasks
         if ($name) {
             $task->option('-s ' . $name);
         }
-        return $task->run();
+        return $task;
     }
 
     /**
@@ -311,8 +211,9 @@ class RoboFile extends \Globalis\Robo\Tasks
      */
     public function clean()
     {
-        $this->cleanGit();
-        $this->cleanWaste();
+        return $this->collectionBuilder()
+            ->addTask($this->cleanGit())
+            ->addTask($this->cleanWaste());
     }
 
     /**
@@ -321,10 +222,9 @@ class RoboFile extends \Globalis\Robo\Tasks
     public function cleanGit()
     {
         $this->loadConfig();
-        $this->taskGitStack()
+        return $this->taskGitStack()
          ->stopOnFail()
-         ->exec('fetch --all --prune')
-         ->run();
+         ->exec('fetch --all --prune');
     }
 
     /**
@@ -332,7 +232,7 @@ class RoboFile extends \Globalis\Robo\Tasks
      */
     public function cleanWaste()
     {
-        $this->taskCleanWaste(__DIR__)->run();
+        return $this->taskCleanWaste(__DIR__);
     }
 
     /**
@@ -343,7 +243,7 @@ class RoboFile extends \Globalis\Robo\Tasks
     public function featureStart($name)
     {
         $this->loadConfig();
-        return $this->taskFeatureStart($name, $this->configVariables['GIT_PATH'])->run();
+        return $this->taskFeatureStart($name, $this->configVariables['GIT_PATH']);
     }
 
     /**
@@ -354,7 +254,7 @@ class RoboFile extends \Globalis\Robo\Tasks
     public function featureFinish($name)
     {
         $this->loadConfig();
-        return $this->taskFeatureFinish($name, $this->configVariables['GIT_PATH'])->run();
+        return $this->taskFeatureFinish($name, $this->configVariables['GIT_PATH']);
     }
 
     /**
@@ -373,7 +273,7 @@ class RoboFile extends \Globalis\Robo\Tasks
             $version = $opts['semversion'];
         }
         $this->loadConfig();
-        return $this->taskHotfixStart((string)$version, $this->configVariables['GIT_PATH'])->run();
+        return $this->taskHotfixStart((string)$version, $this->configVariables['GIT_PATH']);
     }
 
     /**
@@ -391,13 +291,13 @@ class RoboFile extends \Globalis\Robo\Tasks
         } else {
             $version = $opts['semversion'];
         }
-        return $this->taskHotfixFinish((string)$version, $this->configVariables['GIT_PATH'])->run();
+        return $this->taskHotfixFinish((string)$version, $this->configVariables['GIT_PATH']);
     }
 
     /**
      * Start a new release
      *
-     * @option string $semversion Version number
+     * @option string $semversion Version number->run()
      * @option string $type    Relase type (minor, major)
      */
     public function releaseStart($opts = ['semversion' => null, 'type' => 'minor'])
@@ -409,7 +309,7 @@ class RoboFile extends \Globalis\Robo\Tasks
         } else {
             $version = $opts['semversion'];
         }
-        return $this->taskReleaseStart((string)$version, $this->configVariables['GIT_PATH'])->run();
+        return $this->taskReleaseStart((string)$version, $this->configVariables['GIT_PATH']);
     }
 
     /**
@@ -427,7 +327,7 @@ class RoboFile extends \Globalis\Robo\Tasks
         } else {
             $version = $opts['semversion'];
         }
-        return $this->taskReleaseFinish((string)$version, $this->configVariables['GIT_PATH'])->run();
+        return $this->taskReleaseFinish((string)$version, $this->configVariables['GIT_PATH']);
     }
 
     /**
