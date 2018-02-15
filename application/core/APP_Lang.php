@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class APP_Lang extends CI_Lang {
+class APP_Lang extends CI_Lang
+{
 
     protected $subDirectories = [''];
 
@@ -15,9 +16,9 @@ class APP_Lang extends CI_Lang {
      *
      * Fetches a single line of text from the language array
      *
-     * @param	string	$line		Language line key
-     * @param	bool	$log_errors	Whether to log an error message if the line is not found
-     * @return	string	Translation
+     * @param   string  $line       Language line key
+     * @param   bool    $log_errors Whether to log an error message if the line is not found
+     * @return  string  Translation
      */
     public function line($line, $log_errors = true)
     {
@@ -43,7 +44,6 @@ class APP_Lang extends CI_Lang {
                 if (file_exists($basePath.$subDirectory.$path.$directory.'_lang.php')) {
                     $this->load($subDirectory.$path.$directory.'_lang.php');
                     return $this->_line($line);
-
                 }
             }
             $path .= $directory.'/';
@@ -51,7 +51,8 @@ class APP_Lang extends CI_Lang {
         return $this->_line($line);
     }
 
-    protected function _line($line) {
+    protected function _line($line)
+    {
         return isset($this->language[$line]) ? $this->language[$line] : false;
     }
 }

@@ -54,18 +54,6 @@ Robo will ask you to enter some informations in order to build configuration fil
 
 The Robo questions are defined in `.robo/config/properties.php` and the answers are stored in `.robo/config/my.config`.
 
-
-### Integrations
-
-You'll find an `integrations/` folder with the Sass stylesheets, fonts, images and scripts by the application, as well as templates and snippets to help you edit them. This project uses [Bootstrap 4](https://getbootstrap.com/) HTML/CSS framework.
-
-While you work on the integration files, execute `make watch` in the `integrations/` folder and visit `puppet-skilled-sandbox/integrations/` to see the changes on the templates in real time.
-
-To see the changes in real time to the actual application, use `robo assets:watch` at the project root.
-
-You can also use `make build` and `robo assets:build` if you only want to build the assets once.
-
-
 ## Step 1
 
 This step provide a basic architecture for the application with a single static page to present the main principles of Puppet Skilled.
@@ -162,7 +150,7 @@ This method accepts two optional parameters : an array containing data to be sen
 When using the `block` and `element` methods, you can add an array as a parameter to send data to the block or element, and retrieve it in the view with `$this->fetch('key')`. For example, create an input element as follows :
 
 ```php
-$this->element('form/block_input', 
+$this->element('form/block_input',
     [
         'input_element' => 'form/input',
         'label' => 'lang:general_label_search',
@@ -430,7 +418,7 @@ Use `$filters->run(Model::query())` to run the filters and send `$filters` to yo
 
 #### QueryPager
 
-This library is located in `\Globalis\PuppetSkilled\Library\QueryPager` and enable the developer to quickly set up pagination and sorting on a SELECT request. 
+This library is located in `\Globalis\PuppetSkilled\Library\QueryPager` and enable the developer to quickly set up pagination and sorting on a SELECT request.
 
 ```php
 $pager = new QueryPager(

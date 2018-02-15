@@ -23,11 +23,9 @@ class Queue extends \Globalis\PuppetSkilled\Controller\Cli
 
     public function doJobs()
     {
-        $options = new WorkerOptions(0, 128, 60,  3, 10, false);
+        $options = new WorkerOptions(0, 128, 60, 3, 10, false);
         $start = time();
 
-        // @TODO Var duration
-        // @TODO Log Exception
-        while($this->queueService->runNextJob('default', $options) !== false && time() - $start < 50);
+        while ($this->queueService->runNextJob('default', $options) !== false && time() - $start < 50);
     }
 }

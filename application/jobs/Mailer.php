@@ -3,7 +3,8 @@ namespace App\Job;
 
 use APP_Email;
 
-class Mailer extends \Globalis\PuppetSkilled\Queue\Queueable {
+class Mailer extends \Globalis\PuppetSkilled\Queue\Queueable
+{
 
     protected $email;
 

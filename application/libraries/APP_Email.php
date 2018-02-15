@@ -64,13 +64,12 @@ class APP_Email extends CI_Email
     /**
      * Build Final Body and attachments
      *
-     * @return	bool
+     * @return  bool
      */
     protected function _build_message()
     {
         //Debug is active ?
         if ($this->email_interception) {
-
             $debug_separator = $this->newline;
             if ($this->mailtype === 'html') {
                 $debug_separator = "<br/>";
